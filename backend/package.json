@@ -6,10 +6,21 @@
   "repository": "git@github.com:f1lander/prieto-chat.git",
   "author": "Edax Ucles",
   "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
+    "prod": "tsc && node ./dist/server.js"
+  },
   "dependencies": {
-    "@types/express": "^4.17.1",
+    "@types/socket.io": "^2.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "socket.io": "^2.2.0",
     "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.42"
   }
 }
