@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { SocketService } from './socket';
+import { ChatContext } from './socket/chat-context';
+const chat = new SocketService();
+ReactDOM.render(<ChatContext.Provider value={chat}> <App /></ChatContext.Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
