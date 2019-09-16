@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import logo from '../../logo.svg';
 import './MainChat.css';
-import { ChatMessage, ChatState } from '../../socket/types'
+import { IChatMessage, IChatState } from '../../types'
 import { ChatContext } from '../../socket/chat-context';
 
 class MainChat extends React.Component {
     static contextType = ChatContext;
 
-    state: ChatState = {
+    state: IChatState = {
         messages: [
             {
                 message: 'Welcome! Type a message and press Send Message to continue the chat.',
@@ -24,7 +24,7 @@ class MainChat extends React.Component {
 
         const observable = this.context.onMessage();
 
-        observable.subscribe((m: ChatMessage) => {
+        observable.subscribe((m: IChatMessage) => {
             let messages = this.state.messages;
 
             messages.push(m);
@@ -61,7 +61,7 @@ class MainChat extends React.Component {
                 <img src={logo} className="App-logo" alt="logo" />
 
                 <div className="App-chatbox">
-                    {this.state.messages.map((msg: ChatMessage) => {
+                    {this.state.messages.map((msg: IChatMessage) => {
                         msgIndex++;
                         return (
                             <div key={msgIndex}>

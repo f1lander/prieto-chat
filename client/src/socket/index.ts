@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { ChatMessage } from "./types";
+import { IChatMessage } from "../types";
 import { fromEvent, Observable } from "rxjs";
 
 export class SocketService {
@@ -10,12 +10,12 @@ export class SocketService {
     return this;
   }
 
-  public send(message: ChatMessage): void {
+  public send(message: IChatMessage): void {
     console.log("emitting message: " + message);
     this.socket.emit("message", message);
   }
 
-  public onMessage(): Observable<ChatMessage> {
+  public onMessage(): Observable<IChatMessage> {
     return fromEvent(this.socket, "message");
   }
 

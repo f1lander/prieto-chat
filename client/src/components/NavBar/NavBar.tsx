@@ -1,19 +1,12 @@
 import React from 'react';
 import { Link, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import { Container, Navbar } from 'react-bulma-components';
+
 import MainChat from '../MainChat/MainChat';
 import Home from '../Home/Home';
-interface INavbarState {
-    open?: boolean;
-}
 
-class NavBar extends React.Component<INavbarState> {
-    state = {
-        open: false
-    }
+class NavBar extends React.Component {
 
     render() {
-        const { open } = this.state;
 
         return (
             <Router>
