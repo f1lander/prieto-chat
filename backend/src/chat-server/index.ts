@@ -3,6 +3,7 @@ import * as socketIo from "socket.io";
 import { ChatEvent } from "../utils/constants";
 import { ChatMessage } from "../utils/types";
 import { createServer, Server } from "http";
+import StooqBot from "./stooq-bot";
 import * as cors from "cors";
 require("dotenv").config();
 
@@ -12,7 +13,7 @@ export class ChatServer {
   private server: Server;
   private io: SocketIO.Server;
   private port: string | number;
-
+  private _stooqBot: StooqBot;
   constructor() {
     this._app = express();
     this.port = process.env.PORT || ChatServer.PORT;
@@ -21,6 +22,7 @@ export class ChatServer {
     this.server = createServer(this._app);
     this.initSocket();
     this.listen();
+    this._stooqBot = new StooqBot();
   }
 
   private initSocket(): void {
@@ -35,9 +37,17 @@ export class ChatServer {
     this.io.on(ChatEvent.CONNECT, (socket: any) => {
       console.log("Connected client on port %s.", this.port);
 
-      socket.on(ChatEvent.MESSAGE, (m: ChatMessage) => {
+      socket.on(ChatEvent.MESSAGE, async (m: ChatMessage) => {
         console.log("[server](message): %s", JSON.stringify(m));
+
         this.io.emit(ChatEvent.MESSAGE, m);
+        // parse the message
+        const botMessage = await this._stooqBot.parseCommand(m);
+
+        if (botMessage) {
+          console.log("BOT MESSAGE", botMessage);
+          this.io.emit(ChatEvent.MESSAGE, botMessage);
+        }
       });
 
       socket.on(ChatEvent.DISCONNECT, () => {
