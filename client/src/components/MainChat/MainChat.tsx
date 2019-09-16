@@ -6,7 +6,7 @@ import { ChatContext } from '../../socket/chat-context';
 
 class MainChat extends React.Component {
     static contextType = ChatContext;
-
+    el: any;
     state: ChatState = {
         messages: [
             {
@@ -22,6 +22,7 @@ class MainChat extends React.Component {
         //initiate socket connection
         this.context.init();
 
+
         const observable = this.context.onMessage();
 
         observable.subscribe((m: ChatMessage) => {
@@ -29,11 +30,17 @@ class MainChat extends React.Component {
 
             messages.push(m);
             this.setState({ messages: messages });
+            // this.scrollToBottom();
         });
     }
 
     componentWillUnmount() {
         this.context.disconnect();
+        // this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+        //this.el.scrollHeight({ behavior: 'smooth' });
     }
 
     render() {
