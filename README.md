@@ -66,21 +66,6 @@ npm run test
 
 Test are only for the `stooq-bot.ts` class
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 ## Built With
 
 * [NodeJS](https://nodejs.org) - The JS web framework backend used
@@ -92,7 +77,7 @@ We use [Git](http://git.org/) for versioning. For the versions available
 
 ## Author
 
-***Edax Uclés** - *Initial work* - [f1lander](https://github.com/f1lander)
+**Edax Uclés** - *Initial work* - [f1lander](https://github.com/f1lander)
 
 ## License
 
