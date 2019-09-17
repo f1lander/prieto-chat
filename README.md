@@ -25,7 +25,7 @@ Say what the step will be
 
 ```
 Clone this repo
-RENAME the .env.example to .env
+RENAME the .env to .env.example in the /backend folder
 ```
 ## Backend
 
