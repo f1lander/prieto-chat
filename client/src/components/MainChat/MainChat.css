@@ -41,6 +41,12 @@
     font-size: 12px;
 }
 
+.owner-message {
+    background: rgba(43, 255, 0, 0.25) !important;
+    display: flex;
+    margin-left: 30px !important;
+}
+
 input {
     background: none;
     border: 1px solid #fff;
