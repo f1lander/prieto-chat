@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import NavBar from './components/NavBar/NavBar';
+import MainChat from './components/MainChat/MainChat';
 
 const App: React.FC = () => {
   return (
-    <NavBar />
+    <MainChat />
   )
 }
 

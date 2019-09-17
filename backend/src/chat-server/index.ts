@@ -14,6 +14,7 @@ export class ChatServer {
   private io: SocketIO.Server;
   private port: string | number;
   private _stooqBot: StooqBot;
+
   constructor() {
     this._app = express();
     this.port = process.env.PORT || ChatServer.PORT;
@@ -40,6 +41,7 @@ export class ChatServer {
       socket.on(ChatEvent.MESSAGE, async (m: ChatMessage) => {
         console.log("[server](message): %s", JSON.stringify(m));
 
+        m.timestamp = new Date();
         this.io.emit(ChatEvent.MESSAGE, m);
         // parse the message
 
@@ -47,8 +49,8 @@ export class ChatServer {
           const parsedMessage = await this._stooqBot.parseCommand(m);
           // if is not null call the GET request
           if (parsedMessage) {
-            const getCsv = await this._stooqBot.getStooqCsv(parsedMessage);
-            const parsedCsv = this._stooqBot.parseCsv(getCsv);
+            const csvData = await this._stooqBot.getStooqCsv(parsedMessage);
+            const parsedCsv = this._stooqBot.parseCsv(csvData.data);
             this.io.emit(ChatEvent.MESSAGE, parsedCsv);
           }
         } catch (error) {

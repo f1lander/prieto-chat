@@ -1,6 +1,7 @@
 export interface ChatMessage {
   author: string;
   message: string;
+  timestamp: Date;
 }
 
 export interface IStock {

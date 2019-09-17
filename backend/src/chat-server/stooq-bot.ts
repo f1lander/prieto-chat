@@ -32,7 +32,8 @@ class StooqBot {
     const { Symbol, Close } = this._parseCsvUtil(csv);
     const responseMessage: ChatMessage = {
       author: PRIETO_BOOT_DEFAULT.author,
-      message: `${Symbol} quote is $ ${Close} per share`
+      message: `${Symbol} quote is $ ${Close} per share`,
+      timestamp: new Date()
     };
     return responseMessage;
   }
