@@ -66,25 +66,4 @@ describe("StooqBot Class", () => {
       expect(csvData).to.equal(response.data);
     } catch (error) {}
   });
-
-  //   it("should return the bad message for the stock code", async () => {
-  //     const stooqBot = new StooqBot();
-  //     const mock = new MockAdapter(axios);
-
-  //     const stooqURL = "https://stooq.com/q/l/?s=msft.us&f=sd2t2ohlcv&h&e=csv";
-
-  //     const csvData =
-  //       "Symbol,Date,Time,Open,High,Low,Close,Volume\r\nMSFT.US,2019-09-13,22:00:01,137.78,138.06,136.57,137.32,23363057\r\n";
-
-  //     mock.onGet(stooqURL).reply(200, {
-  //       response: { data: csvData }
-  //     });
-
-  //     const message = { author: "Edax", message: "/stockBAD" };
-  //     const parsedCommand = await stooqBot.parseCommand(message);
-
-  //     expect(parsedCommand.message).to.equal(
-  //       "I can't understand this command, please try something like /stock_quote=<stock_code>"
-  //     );
-  //   });
 });

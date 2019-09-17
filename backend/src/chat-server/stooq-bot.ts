@@ -48,7 +48,7 @@ class StooqBot {
       return Promise.reject(PRIETO_BOOT_BAD_REQUEST);
     }
 
-    if (message.startsWith("/")) return Promise.reject(PRIETO_BOOT_BAD_REQUEST);
+    if (message.startsWith("/")) return Promise.reject(PRIETO_BOOT_DEFAULT);
 
     return Promise.resolve(null);
   }

@@ -33,33 +33,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       error: "Internal error please try again"
     });
   }
-
-  //   try {
-  //     const user: User = User.findOne({ email }).exec();
-  //     if (!user) {
-  //       return res.status(401).json({
-  //         error: "Incorrect email or password"
-  //       });
-  //     }
-
-  //     const isCorrect = await user.isCorrectPassword(password);
-  //     if (!isCorrect) {
-  //       return res.status(401).json({
-  //         error: "Incorrect email or password"
-  //       });
-  //     }
-  //     // Issue token
-  //     const payload = { email };
-  //     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-  //       expiresIn: "1h"
-  //     });
-  //     return res.cookie("token", token, { httpOnly: true }).sendStatus(200);
-  //   } catch (error) {
-  //     console.log("Error", error.message);
-  //     res.status(500).json({
-  //       error: "Internal error please try again"
-  //     });
-  //   }
 };
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
