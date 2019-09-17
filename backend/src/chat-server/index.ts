@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as socketIo from "socket.io";
-import { ChatEvent } from "../utils/constants";
+import { ChatEvent, PRIETO_BOOT_BAD_REQUEST } from "../utils/constants";
 import { ChatMessage } from "../utils/types";
 import { createServer, Server } from "http";
 import StooqBot from "./stooq-bot";
@@ -42,11 +42,17 @@ export class ChatServer {
 
         this.io.emit(ChatEvent.MESSAGE, m);
         // parse the message
-        const botMessage = await this._stooqBot.parseCommand(m);
 
-        if (botMessage) {
-          console.log("BOT MESSAGE", botMessage);
-          this.io.emit(ChatEvent.MESSAGE, botMessage);
+        try {
+          const parsedMessage = await this._stooqBot.parseCommand(m);
+          // if is not null call the GET request
+          if (parsedMessage) {
+            const getCsv = await this._stooqBot.getStooqCsv(parsedMessage);
+            const parsedCsv = this._stooqBot.parseCsv(getCsv);
+            this.io.emit(ChatEvent.MESSAGE, parsedCsv);
+          }
+        } catch (error) {
+          this.io.emit(ChatEvent.MESSAGE, error);
         }
       });
 

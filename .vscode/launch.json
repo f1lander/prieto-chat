@@ -5,6 +5,21 @@
     "version": "0.2.0",
     "configurations": [{
             "type": "node",
+            "request": "launch",
+            "name": "Mocha Tests",
+            "program": "${workspaceFolder}/backend/node_modules/mocha/bin/_mocha -r ts-node/register",
+            "args": [
+                "-u",
+                "tdd",
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/backend/src/**/*.test.ts"
+            ],
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
             "request": "attach",
             "name": "Typescript Server",
             // "processId": "${command:PickProcess}",
