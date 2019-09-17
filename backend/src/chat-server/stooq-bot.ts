@@ -1,16 +1,10 @@
-import { ChatMessage } from "../utils/types";
-import { PRIETO_BOOT } from "../utils/constants";
+import { ChatMessage, IStock } from "../utils/types";
+import {
+  PRIETO_BOOT_DEFAULT,
+  PRIETO_BOOT_BAD_REQUEST
+} from "../utils/constants";
 const axios = require("axios");
-interface IStock {
-  Symbol: string;
-  Date: string;
-  Time: string;
-  Open: string;
-  High: string;
-  Low: string;
-  Close: string;
-  Volume: string;
-}
+
 class StooqBot {
   stooqURL = (stock_code: string) =>
     `https://stooq.com/q/l/?s=${stock_code}&f=sd2t2ohlcv&h&e=csv`;
@@ -18,10 +12,10 @@ class StooqBot {
   regExp = /^\/stock_code=*/gm;
   defaultMessage: ChatMessage;
   constructor() {
-    this.defaultMessage = PRIETO_BOOT;
+    this.defaultMessage = PRIETO_BOOT_DEFAULT;
   }
 
-  parseCsv(csvData: string): IStock {
+  _parseCsvUtil(csvData: string): IStock {
     const headers = csvData.split("\r\n")[0].split(",");
     const _obj: IStock & any = {};
     csvData
@@ -33,32 +27,34 @@ class StooqBot {
 
     return _obj;
   }
-  async respond(csv: any) {
-    const { Symbol, Close } = this.parseCsv(csv);
+
+  parseCsv(csv: any) {
+    const { Symbol, Close } = this._parseCsvUtil(csv);
     const responseMessage: ChatMessage = {
-      author: PRIETO_BOOT.author,
+      author: PRIETO_BOOT_DEFAULT.author,
       message: `${Symbol} quote is $ ${Close} per share`
     };
-    console.log(responseMessage);
-    return Promise.resolve(responseMessage);
+    return responseMessage;
   }
 
   async parseCommand(command: ChatMessage) {
     const { message } = command;
+    let result;
 
-    if (message.startsWith("/stock_code="))
-      return this.getStooqCsv(message.split("=")[1]);
+    if (message.startsWith("/stock_code=")) {
+      result = message.split("=")[1];
+      if (result !== "" && result) return Promise.resolve(result);
 
-    if (message.startsWith("/")) return Promise.resolve(this.defaultMessage);
+      return Promise.reject(PRIETO_BOOT_BAD_REQUEST);
+    }
+
+    if (message.startsWith("/")) return Promise.reject(PRIETO_BOOT_BAD_REQUEST);
 
     return Promise.resolve(null);
   }
 
   async getStooqCsv(command: string) {
-    try {
-      const csvRes = await axios.get(this.stooqURL(command));
-      return await this.respond(csvRes.data);
-    } catch (error) {}
+    return axios.get(this.stooqURL(command));
   }
 }
 export default StooqBot;
