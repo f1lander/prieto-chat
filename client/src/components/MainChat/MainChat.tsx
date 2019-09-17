@@ -32,8 +32,10 @@ class MainChat extends React.Component {
             let messages = this.state.messages;
 
             messages.push(m);
-            this.setState({ messages: messages });
-            // this.scrollToBottom();
+            let _length = messages.length;
+            console.log(_length);
+            this.setState({ messages: messages.slice(-50) });
+            console.log(this.state.messages)
         });
     }
 
@@ -82,12 +84,14 @@ class MainChat extends React.Component {
                     {this.state.messages.map((msg: ChatMessage) => {
                         msgIndex++;
                         return (
-                            <div key={msgIndex}>
-                                <p>{msg.author}</p>
-                                <p style={{ fontSize: 'smaller' }}>{moment(msg.timestamp).format('LT')}</p>
-                                <p>
-                                    {msg.message}
-                                </p>
+                            <div className={msg.author === this.state.author ? "owner-message" : ""} key={msgIndex}>
+                                <div>
+                                    <p>{msg.author}</p>
+                                    <p style={{ fontSize: 'smaller' }}>{moment(msg.timestamp).format('LT')}</p>
+                                    <p>
+                                        {msg.message}
+                                    </p>
+                                </div>
                             </div>
                         );
                     })}
