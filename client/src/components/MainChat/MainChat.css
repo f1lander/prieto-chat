@@ -22,12 +22,11 @@
     display: flex;
     flex-direction: column;
     margin: 2em auto;
-    max-height: 600px;
+    max-height: 300px;
     overflow-y: scroll;
     text-align: left;
     max-width: 500px;
     width: 100%;
-
 }
 
 .App-chatbox>div {
@@ -40,12 +39,6 @@
 
 .App-chatbox p:first-child {
     font-size: 12px;
-}
-
-.owner-message {
-    background: rgba(43, 255, 0, 0.25) !important;
-    display: flex;
-    margin-left: 30px !important;
 }
 
 input {

@@ -57,7 +57,17 @@ class MainChat extends React.Component {
         const updateAuthorInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
             this.setState({ author: e.target.value });
         }
+        const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                handleMessage();
+            }
+        }
 
+        const handleKeyPressStart = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                handleStart();
+            }
+        }
 
         const handleStart = (): void => {
             this.setState({ startChat: true });
@@ -103,6 +113,7 @@ class MainChat extends React.Component {
                             className="App-Textarea"
                             placeholder="Type your name"
                             onChange={updateAuthorInput}
+                            onKeyPress={handleKeyPressStart}
                             value={this.state.author}
                         />
                         <button onClick={() => { handleStart() }}>
@@ -117,6 +128,7 @@ class MainChat extends React.Component {
                             className="App-Textarea"
                             placeholder="Type your message here..."
                             onChange={updateInput}
+                            onKeyPress={handleKeyPress}
                             value={this.state.input}
                         />
                         <p>
