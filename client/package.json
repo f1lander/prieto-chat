@@ -12,7 +12,7 @@
     "@types/socket.io-client": "^1.4.32",
     "@types/styled-components": "^4.1.19",
     "bulma": "^0.7.5",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.9.0",
     "react-bulma-components": "^3.0.1-4",
     "react-dom": "^16.9.0",
